@@ -1,0 +1,18 @@
+{
+  "name": "hugo-startpage",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:css": "npx tailwindcss -i ./tailwind.css -o ./static/css/style.css --watch",
+    "build:css": "npx tailwindcss -i ./tailwind.css -o ./static/css/style.css --minify",
+    "dev": "npm run build:css && hugo server -D",
+    "build": "npm run build:css && hugo --minify",
+    "start": "concurrently \"npm run dev:css\" \"hugo server -D\""
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6"
+  }
+}

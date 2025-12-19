@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="max-w-3xl mx-auto">
+  <!-- Navigation -->
+  <div class="mb-8">
+    <a href="/posts/" class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+      ← Back to blog
+    </a>
+  </div>
+
+  <!-- Article -->
+  <article class="prose prose-lg dark:prose-invert max-w-none">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">{{ .Title }}</h1>
+      <div class="text-gray-600 dark:text-gray-400 text-sm">
+        {{ .Date.Format "January 2, 2006" }} • {{ .ReadingTime }} min read
+      </div>
+    </header>
+    
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      {{ .Content }}
+    </div>
+  </article>
+
+  <!-- Next/Prev -->
+  <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 flex justify-between">
+    {{ with .PrevInSection }}
+      <a href="{{ .Permalink }}" class="text-blue-600 dark:text-blue-400 hover:underline transition-colors">
+        ← {{ .Title | truncate 50 }}
+      </a>
+    {{ end }}
+    {{ with .NextInSection }}
+      <a href="{{ .Permalink }}" class="text-blue-600 dark:text-blue-400 hover:underline transition-colors ml-auto">
+        {{ .Title | truncate 50 }} →
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

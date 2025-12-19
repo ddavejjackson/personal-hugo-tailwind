@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="{{ if eq .Kind "home" }}h-full{{ end }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 {{ if eq .Kind "home" }}h-full{{ else }}p-4 md:p-8{{ end }}">
+  {{ if .Site.Params.showThemeToggle | default true }}
+  <!-- Theme Toggle Button -->
+  <div class="fixed top-4 right-4 z-50">
+    <button 
+      id="theme-toggle" 
+      class="btn-theme shadow-lg"
+      onclick="toggleTheme()"
+      aria-label="Toggle dark mode"
+    >
+      ☀️
+    </button>
+  </div>
+  {{ end }}
+  
+  {{ block "main" . }}{{ end }}
+  
+  <!-- Theme toggle script -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        updateThemeToggle('light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeToggle('dark');
+      }
+    }
+  </script>
+</body>
+</html>

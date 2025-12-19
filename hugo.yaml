@@ -1,0 +1,28 @@
+baseURL: "https://example.org/"
+languageCode: "en-us"
+title: "Minimal Blog & Startpage"
+
+params:
+  description: "A minimal blog and startpage"
+  defaultTheme: "system" # system, light, dark
+  showThemeToggle: true
+  
+  quick_links:
+    - name: "Gmail"
+      url: "https://mail.google.com"
+      icon: "📧"
+    - name: "GitHub"
+      url: "https://github.com"
+      icon: "🐙"
+    - name: "Reddit"
+      url: "https://reddit.com"
+      icon: "🤖"
+    - name: "YouTube"
+      url: "https://youtube.com"
+      icon: "📺"
+    - name: "Hacker News"
+      url: "https://news.ycombinator.com"
+      icon: "⚡"
+    - name: "TryHackMe"
+      url: "https://tryhackme.com"
+      icon: 

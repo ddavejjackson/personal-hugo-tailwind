@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+  
+  /* Fix input text colors for dark mode */
+  input, textarea {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  input::placeholder, textarea::placeholder {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10;
+  }
+  
+  .btn-theme {
+    @apply p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200;
+  }
+  
+  /* Reusable input component */
+  .search-input {
+    @apply w-full p-4 text-lg rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:focus:ring-blue-400 shadow-lg text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400;
+  }
+}

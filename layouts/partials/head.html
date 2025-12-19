@@ -1,0 +1,51 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+<!-- Theme color meta tags -->
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Theme initialization script -->
+<script>
+  // Get theme from localStorage or system preference
+  function getTheme() {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return systemDark ? 'dark' : 'light';
+  }
+  
+  // Set theme on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const theme = getTheme();
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // Update theme toggle button
+    updateThemeToggle(theme);
+  });
+  
+  function updateThemeToggle(theme) {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+    
+    if (theme === 'dark') {
+      toggle.innerHTML = '🌙';
+      toggle.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      toggle.innerHTML = '☀️';
+      toggle.setAttribute('aria-label', 'Switch to dark mode');
+    }
+  }
+</script>

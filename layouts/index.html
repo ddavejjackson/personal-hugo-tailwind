@@ -1,0 +1,101 @@
+{{ define "main" }}
+<div class="h-full flex flex-col items-center justify-center p-4 relative">
+  {{ if .Site.Params.showThemeToggle | default true }}
+  <!-- Theme toggle for startpage (alternative position) -->
+  <div class="absolute top-4 right-4">
+    <button 
+      id="theme-toggle-start" 
+      class="btn-theme"
+      onclick="toggleTheme()"
+      aria-label="Toggle dark mode"
+    >
+      ☀️
+    </button>
+  </div>
+  {{ end }}
+  
+  <!-- Clock & Date -->
+  <div class="text-center mb-12">
+    <div id="clock" class="text-6xl md:text-7xl font-mono font-light mb-2 tracking-tighter text-gray-800 dark:text-gray-100"></div>
+    <div id="date" class="text-lg text-gray-600 dark:text-gray-400"></div>
+  </div>
+
+    <!-- Search -->
+    <div class="w-full max-w-2xl mb-12">
+      <form action="https://www.google.com/search" method="GET" class="relative">
+        <input 
+          type="text" 
+          name="q" 
+          placeholder="Search Google..." 
+          autocomplete="off"
+          autofocus
+          class="w-full p-4 text-lg rounded-xl bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:focus:ring-blue-400 shadow text-gray-900 dark:text-gray-50 placeholder-gray-500 dark:placeholder-gray-400"
+        >
+        <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">
+          🔍
+        </button>
+      </form>
+    </div>
+
+  <!-- Quick Links -->
+  <div class="w-full max-w-4xl">
+    <h2 class="text-xl mb-6 text-center font-medium text-gray-700 dark:text-gray-300">Quick Links</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+      {{ range .Site.Params.quick_links }}
+      <a 
+        href="{{ .url }}" 
+        target="_blank"
+        class="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center justify-center hover:scale-105 transform transition-all duration-200 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 shadow-md hover:shadow-xl"
+      >
+        <span class="text-3xl mb-2">{{ .icon }}</span>
+        <span class="text-sm font-medium text-gray-800 dark:text-gray-200">{{ .name }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- Blog Link -->
+  <div class="mt-12">
+    <a 
+      href="/posts/" 
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-gray-800/80 border border-gray-300 dark:border-gray-700 transition-all hover:shadow-lg"
+    >
+      📝 View Blog
+    </a>
+  </div>
+</div>
+
+<script>
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    
+    document.getElementById('clock').textContent = time;
+    document.getElementById('date').textContent = date;
+  }
+  
+  updateClock();
+  setInterval(updateClock, 1000);
+  
+  // Focus search on '/'
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && e.target.tagName !== 'INPUT') {
+      e.preventDefault();
+      document.querySelector('input[name="q"]').focus();
+    }
+  });
+  
+  // Theme toggle for startpage button
+  document.addEventListener('DOMContentLoaded', () => {
+    const theme = localStorage.getItem('theme') || 
+                 (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    const toggleBtn = document.getElementById('theme-toggle-start');
+    if (toggleBtn) {
+      toggleBtn.innerHTML = theme === 'dark' ? '🌙' : '☀️';
+    }
+  });
+</script>
+{{ end }}
